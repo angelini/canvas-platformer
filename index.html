@@ -1,17 +1,22 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Canvas Test</title>
-  <style>
-    #main {
-      border: 1px solid black;
-    }
-  </style>
+  <title>Canvas Platformer</title>
+  <link href="/assets/css/main.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
+  <canvas id="bg"></canvas>
   <canvas id="main"></canvas>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
-  <script src="https://raw.github.com/tmpvar/node-eventemitter/master/index.js"></script>
-  <script src="platformer.js"></script>
+
+  <!-- Third-Party Libraries (Order matters) -->
+  <script src="/assets/js/jquery-1.7.1.js"></script>
+  <script src="/assets/js/event-emitter.js"></script>
+
+  <!-- Application core (Order matters) -->
+  <script src="/src/application.js"></script>
+
+  <!-- Modules (Order does not matter) -->
+  <script src="/src/modules/char.js"></script>
+  <script src="/src/modules/control.js"></script>
 </body>
 </html>
