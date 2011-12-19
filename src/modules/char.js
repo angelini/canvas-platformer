@@ -71,13 +71,14 @@
   Char.prototype.move = function(x, y) {
     var clear_rect = this.getClearRectangle(x, y);
     if(!this.level.checkInside(this.x + x, this.y + y)) {
-      console.log('outside');
       return;
     }
 
     if(!this.level.collision(this.x + x, this.y)) {
-      this.x += x;
-    }
+      if(!this.level.moveScreen(this.x, x, this.y, 0)) {
+        this.x += x;
+      }
+    } 
 
     if(!this.level.collision(this.x, this.y + y)) {
       this.y += y;

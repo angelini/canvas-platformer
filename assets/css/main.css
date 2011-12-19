@@ -10,3 +10,7 @@
 #debug {
   float: right;
 }
+
+#background {
+  display: none;
+}
