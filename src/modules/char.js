@@ -45,8 +45,24 @@
 
     this.x += x;
     this.y += y;
-    this.emit('clear', clear_rect);
+
+    this.emit('move', this.x, this.y, clear_rect);
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
+  };
+
+  Char.prototype.fall = function() {
+    if (this.falling || this.jumping) {
+      return;
+    }
+
+    var that = this;
+    this.falling = true;
+    
+    setTimeout(function() {
+      that.falling = null;
+      that.move(0, 1.6 * C.UNIT);
+    },
+    C.KEY_REPEAT);
   };
 
   Char.prototype.jump = function(height) {
@@ -60,21 +76,12 @@
 
     this.jumping = setInterval(function() {
       if (current >= height) {
-        up = false;
-      }
-
-      if (up) {
-        that.move(0, - 2 * C.UNIT);
-        current += 2 * C.UNIT;
-      } else {
-        that.move(0, 2 * C.UNIT);
-        current += - 2 * C.UNIT;
-      }
-
-      if (!up && current <= 0) {
         clearInterval(that.jumping);
         that.jumping = false;
       }
+
+      that.move(0, - 1.6 * C.UNIT);
+      current += 1.6 * C.UNIT;
     },
     C.KEY_REPEAT);
   };

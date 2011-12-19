@@ -1,7 +1,12 @@
-canvas {
+#main,
+#bg {
   position: absolute;
 }
 
 #main {
   z-index: 1;
+}
+
+#debug {
+  float: right;
 }
