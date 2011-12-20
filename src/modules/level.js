@@ -22,8 +22,10 @@
     }
 
     // DEBUG BLOCK //
+    /*
     this.buffer.id = 'debug';
     $('body').append(this.buffer);
+    */
     // END DEBUG //
   };
 
@@ -94,9 +96,13 @@
     var to_move = false;
 
     if(move_x > 0 && cur_x + move_x > 0.8 * C.APP_WIDTH) {
-      to_move = true;
+      if(this.bg_x + cur_x + move_x < this.buffer.width - (0.2 * C.APP_WIDTH)) {
+        to_move = true;
+      }
     } else if(move_x < 0 && cur_x + move_x < 0.2 * C.APP_WIDTH) {
-      to_move = true;
+      if(this.bg_x + cur_x + move_x > (0.2 * C.APP_WIDTH)) {
+        to_move = true;
+      }
     }
 
     if(to_move) {
@@ -104,10 +110,6 @@
     }
 
     return to_move;
-  };
-
-  Level.prototype.endOfReel = function(x) {
-
   };
 
   module.Constructor = Level;

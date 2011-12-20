@@ -13,15 +13,39 @@
       "y": 320,
       "w": 100,
       "h": 80,
-      "color": "lightblue",
+      "color": "brown",
       "type": 0
     },
     {
-      "x": 240,
+      "x": 220,
       "y": 320,
       "w": 400,
       "h": 80,
-      "color": "lightblue",
+      "color": "brown",
+      "type": 0
+    },
+    {
+      "x": 280,
+      "y": 290,
+      "w": 100,
+      "h": 110,
+      "color": "brown",
+      "type": 0
+    },
+    {
+      "x": 0,
+      "y": 380,
+      "w": 950,
+      "h": 20,
+      "color": "brown",
+      "type": 0
+    },
+    {
+      "x": 930,
+      "y": 300,
+      "w": 20,
+      "h": 100,
+      "color": "brown",
       "type": 0
     }
   ]
