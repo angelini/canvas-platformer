@@ -30,7 +30,7 @@
     });
 
     this.control.on('left', function() {
-      that.move(-1 * C.UNIT, 0);
+      that.move( - 1 * C.UNIT, 0);
     });
 
     this.control.on('jump', function() {
@@ -38,56 +38,29 @@
     });
   };
 
-  Char.prototype.clear = function(rect) {
-    if(rect) {
-       return this.ctx.clearRect(rect.x, rect.y, rect.width, rect.height);
-    }
-
+  Char.prototype.clear = function() {
     this.ctx.clearRect(0, 0, C.APP_WIDTH, C.APP_HEIGHT);
   };
 
-  Char.prototype.getClearRectangle = function(x, y) {
-    var rect = {};
-
-    if (x > 0) {
-      rect.x = this.x;
-      rect.width = this.width + x;
-    } else {
-      rect.x = this.x + x;
-      rect.width = this.width - x;
-    }
-
-    if (y > 0) {
-      rect.y = this.y;
-      rect.height = this.height + y;
-    } else {
-      rect.y = this.y + y;
-      rect.height = this.height - y;
-    }
-
-    return rect;
-  };
-
   Char.prototype.move = function(x, y) {
-    var clear_rect = this.getClearRectangle(x, y);
-    if(!this.level.checkInside(this.x + x, this.y + y)) {
+    if (!this.level.checkInside(this.x + x, this.y + y)) {
       return;
     }
 
-    if(!this.level.collision(this.x + x, this.y)) {
-      if(!this.level.moveScreen(this.x, x, this.y, 0)) {
+    if (!this.level.collision(this.x + x, this.y)) {
+      if (!this.level.moveScreen(this.x, x, this.y, 0)) {
         this.x += x;
       }
-    } 
+    }
 
-    if(!this.level.collision(this.x, this.y + y)) {
+    if (!this.level.collision(this.x, this.y + y)) {
       this.y += y;
     }
 
-    this.clear(clear_rect);
+    this.clear();
     this.ctx.fillRect(this.x, this.y, this.width, this.height);
 
-    if(!this.level.collision(this.x, this.y + C.UNIT)) {
+    if (!this.level.collision(this.x, this.y + C.UNIT)) {
       this.fall();
     }
   };
@@ -98,11 +71,19 @@
     }
 
     var that = this;
-    this.falling = true;
-    
-    setTimeout(function() {
-      that.falling = null;
-      that.move(0, 1.6 * C.UNIT);
+    var acc = 0.3;
+
+    this.falling = setInterval(function() {
+      if (that.level.collision(that.x, that.y + acc * C.UNIT)) {
+        while(!that.level.collision(that.x, that.y + 1)) {
+          that.move(0, 1);
+        }
+        clearInterval(that.falling);
+        that.falling = null;
+      }
+
+      that.move(0, acc * C.UNIT);
+      acc += 0.1;
     },
     C.KEY_REPEAT);
   };
@@ -115,6 +96,7 @@
     var that = this;
     var up = true;
     var current = 0;
+    var acc = 2;
 
     this.jumping = setInterval(function() {
       if (current >= height) {
@@ -122,8 +104,9 @@
         that.jumping = false;
       }
 
-      that.move(0, - 1.6 * C.UNIT);
-      current += 1.6 * C.UNIT;
+      that.move(0, - acc * C.UNIT);
+      current += acc * C.UNIT;
+      acc -= 0.1;
     },
     C.KEY_REPEAT);
   };

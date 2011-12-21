@@ -54,7 +54,7 @@ var app = {
         width: C.CHAR_WIDTH,
         x: level.start.x,
         y: level.start.y,
-        color: 'orange'
+        color: 'red'
       };
       
       $('.current-level').text(level.name);
